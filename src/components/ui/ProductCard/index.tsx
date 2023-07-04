@@ -3,6 +3,8 @@
 import { Product } from '@/types'
 import { Expand, ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useCallback } from 'react'
 import { Currency } from '../Currency'
 import { IconButton } from '../IconButton'
 
@@ -11,8 +13,17 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ data }: ProductCardProps) => {
+   const router = useRouter()
+
+   const handleClick = useCallback(() => {
+      router.push(`/product/${data?.id}`)
+   }, [data?.id, router])
+
    return (
-      <div className="group cursor-pointer space-y-4 rounded-xl border bg-white p-3">
+      <div
+         onClick={handleClick}
+         className="group cursor-pointer space-y-4 rounded-xl border bg-white p-3"
+      >
          {/* Images and Actions */}
          <div className="relative aspect-square rounded-xl bg-gray-100">
             <Image
