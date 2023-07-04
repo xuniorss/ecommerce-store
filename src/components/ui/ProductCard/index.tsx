@@ -1,5 +1,6 @@
 'use client'
 
+import { useCart } from '@/hooks/useCart'
 import { usePreviewModal } from '@/hooks/usePreviewModal'
 import { Product } from '@/types'
 import { Expand, ShoppingCart } from 'lucide-react'
@@ -16,6 +17,7 @@ interface ProductCardProps {
 export const ProductCard = ({ data }: ProductCardProps) => {
    const router = useRouter()
    const previewModal = usePreviewModal()
+   const cart = useCart()
 
    const handleClick = useCallback(() => {
       router.push(`/product/${data?.id}`)
@@ -28,6 +30,15 @@ export const ProductCard = ({ data }: ProductCardProps) => {
          previewModal.onOpen(data)
       },
       [data, previewModal]
+   )
+
+   const onAddToCart: MouseEventHandler<HTMLButtonElement> = useCallback(
+      (event) => {
+         event.stopPropagation()
+
+         cart.addItem(data)
+      },
+      [cart, data]
    )
 
    return (
@@ -50,7 +61,7 @@ export const ProductCard = ({ data }: ProductCardProps) => {
                      icon={<Expand size={20} className="text-gray-600" />}
                   />
                   <IconButton
-                     onClick={() => {}}
+                     onClick={onAddToCart}
                      icon={<ShoppingCart size={20} className="text-gray-600" />}
                   />
                </div>

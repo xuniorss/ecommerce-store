@@ -1,6 +1,7 @@
 import { Footer } from '@/components/Footer'
 import { Navbar } from '@/components/Navbar'
 import ModalProvider from '@/providers/modal-provider'
+import ToastProvider from '@/providers/toast-provider'
 import { Urbanist } from 'next/font/google'
 import { ReactNode } from 'react'
 
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <html lang="pt-BR">
          <body className={font.className}>
             <ModalProvider />
+            <ToastProvider />
             {/* @ts-expect-error Server Component */}
             <Navbar />
             {children}
